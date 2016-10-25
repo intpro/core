@@ -1,0 +1,29 @@
+{
+    "name": "interpro/core",
+    "description": "Центральные компоненты для интеграции.",
+    "version": "1.0.1",
+    "keywords": [
+        "core"
+    ],
+    "license": "MIT",
+    "authors": [
+    {
+        "name": "Boris Dorofeev",
+        "email": "boris.dorofeev@gmail.com"
+    }
+    ],
+    "autoload": {
+        "classmap": [],
+        "files": [],
+        "psr-4": {
+        "Interpro\\Origin\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
+}
