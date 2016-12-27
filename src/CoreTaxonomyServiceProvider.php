@@ -6,15 +6,14 @@ use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
-class CoreDeferServiceProvider extends ServiceProvider {
-
-    protected $defer = true;
+class CoreTaxonomyServiceProvider extends ServiceProvider {
 
     /**
      * @return void
      */
     public function boot(Dispatcher $dispatcher)
     {
+        Log::info('Загрузка CoreTaxonomyServiceProvider');
     }
 
     /**
@@ -24,6 +23,8 @@ class CoreDeferServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+        Log::info('Регистрация CoreTaxonomyServiceProvider');
+
         $this->app->singleton(
             'Interpro\Core\Contracts\Taxonomy\Factory\TaxonomyFactory',
             'Interpro\Core\Taxonomy\Factory\TaxonomyFactory'
@@ -39,17 +40,7 @@ class CoreDeferServiceProvider extends ServiceProvider {
                 return $factory->createTaxonomy($registrator->getCollection());
             }
         );
-    }
 
-    /**
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'Interpro\Core\Contracts\Taxonomy\Factory\TaxonomyFactory',
-            'Interpro\Core\Contracts\Taxonomy\Taxonomy'
-        ];
     }
 
 }

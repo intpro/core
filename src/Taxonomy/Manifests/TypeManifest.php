@@ -9,7 +9,7 @@ use Interpro\Core\Taxonomy\Exception\TaxonomyException;
 
 abstract class TypeManifest implements TypeManifestInterface
 {
-    const NAME_EXP = '/^[a-z][a-z0-9_]+$/';
+    const NAME_EXP = '/^[a-z][a-z0-9_]*$/';
 
     private $family;
     private $name;

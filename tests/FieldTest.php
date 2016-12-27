@@ -7,7 +7,7 @@ use Interpro\Core\Taxonomy\Fields\RefField;
 use Interpro\Core\Taxonomy\Types\BlockType;
 use Interpro\Core\Taxonomy\Types\BModeType;
 use Interpro\Core\Taxonomy\Types\GroupType;
-use Interpro\Core\Taxonomy\Types\ScalarType;
+use Interpro\Core\Taxonomy\Types\CType;
 
 class FieldTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         $this->aggrB1 = new BModeType('image', 'imagearg');
         $this->aggrB2 = new BModeType('crop', 'imagearg');
         $this->aggrB3 = new BModeType('money', 'cash');
-        $this->typeC = new ScalarType('int', 'scalar');
+        $this->typeC = new CType('int', 'scalar');
 
         $this->AOwnField1 = new OwnField($this->aggrA2, 'own1', 'image');
         $this->AOwnField2 = new OwnField($this->aggrA2, 'own2', 'int');

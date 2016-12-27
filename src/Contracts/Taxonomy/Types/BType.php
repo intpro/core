@@ -3,6 +3,6 @@
 namespace Interpro\Core\Contracts\Taxonomy\Types;
 
 
-interface BType extends AggrType
+interface BType extends OwnType, AggrType
 {
 }

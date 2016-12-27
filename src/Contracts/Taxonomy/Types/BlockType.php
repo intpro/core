@@ -3,7 +3,7 @@
 namespace Interpro\Core\Contracts\Taxonomy\Types;
 
 
-interface BlockType extends AggrType
+interface BlockType extends AType
 {
     /**
      * @param string $group_name
@@ -12,7 +12,7 @@ interface BlockType extends AggrType
      * @return \Interpro\Core\Contracts\Taxonomy\Types\GroupType
      *
      */
-    public function getGroupType($group_name, $ref_name = 'superior');
+    public function getGroupType($group_name);
 
     /**
      * @param string $group_name
@@ -23,14 +23,12 @@ interface BlockType extends AggrType
     public function getGroupTypeFlat($group_name);
 
     /**
-     * @param string $ref_name
-     *
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\GroupTypesCollection
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
      */
-    public function getGroups($ref_name = 'superior');
+    public function getGroups();
 
     /**
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\TypesCollection
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
      */
     public function getGroupsFlat();
 }

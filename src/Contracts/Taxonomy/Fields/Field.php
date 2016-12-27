@@ -6,9 +6,33 @@ use Interpro\Core\Contracts\Named;
 
 interface Field extends Named
 {
+    /**
+     * @return \Interpro\Core\Contracts\Taxonomy\Types\AggrType
+     */
     public function getOwnerType();
 
-    public function getFieldType();
-
+    /**
+     * @return string
+     */
     public function getFieldTypeName();
+
+    /**
+     * @return string
+     */
+    public function getOwnerTypeName();
+
+    /**
+     * @return string
+     */
+    public function getFieldTypeFamily();
+
+    /**
+     * @return string
+     */
+    public function getRank();
+
+    /**
+     * @return int
+     */
+    public function getMode();
 }

@@ -2,86 +2,89 @@
 
 namespace Interpro\Core\Taxonomy\Collections;
 
-use Interpro\Core\Contracts\Collection;
-use Interpro\Core\Taxonomy\Fields\RefField;
+use Interpro\Core\Contracts\Named;
+use Interpro\Core\Contracts\Taxonomy\Fields\RefField as RefFieldInterface;
+use Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection as SubsCollectionInterface;
+use Interpro\Core\Contracts\Taxonomy\Types\AggrType;
+use Interpro\Core\Taxonomy\Exception\TaxonomyException;
 
-class SubsCollection implements Collection
+class SubsCollection extends NamedCollection implements SubsCollectionInterface
 {
-    protected $refs = [];
-    private $named_collections = [];
-    private $position = 0;
+    private $ref_name;
+    private $refType;
+    private $cap;
 
-    /**
-     * @param \Interpro\Core\Taxonomy\Fields\RefField
-     */
-    public function addRef(RefField $field)
+    public function __construct($ref_name, AggrType $refType, $cap = false)
     {
-        $this->refs[$field->getName()] = $field;
+        $this->ref_name = $ref_name;
+        $this->refType = $refType;
+        $this->cap = $cap;
     }
 
     /**
-     * @param string $name
-     *
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\AggrTypesCollection
+     * @return bool
      */
-    public function filterByFieldName($name)
+    public function cap()
     {
-        if(!array_key_exists($name, $this->named_collections))
+        return $this->cap;
+    }
+
+    /**
+     * Коллекция сама является элементом коллекции SubRefNamedCollectionSet по имени
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->ref_name;
+    }
+
+    /**
+     * @param \Interpro\Core\Contracts\Taxonomy\Fields\RefField
+     */
+    public function addByRef(RefFieldInterface $ref)
+    {
+        if($ref->getFieldType() !== $this->refType)
         {
-            $collection = new AggrTypesCollection();
-
-            foreach($this as $ref)
-            {
-                if($ref->getName() === $name or $name === 'all')
-                {
-                    $type = $ref->getFieldType();
-                    if(!$collection->exist($type->getName()))
-                    {
-                        $collection->addType($type);
-                    }
-                }
-            }
-
-            $this->named_collections[$name] = $collection;
+            throw new TaxonomyException('Попытка добаления ссылки типа'.$ref->getFieldTypeName().' в колекцию ссылок типа '.$this->refType->getName().'!');
         }
 
-        return $this->named_collections[$name];
-    }
+        $type = $ref->getOwnerType();
 
-    function rewind()
-    {
-        $this->position = 0;
-    }
+        $key = $type->getName();
 
-    /**
-     * @return \Interpro\Core\Contracts\Named
-     */
-    function current()
-    {
-        return $this->refs[$this->position];
-    }
+        if(!in_array($key, $this->item_names))
+        {
+            $this->item_names[] = $key;
+        }
 
-    function key()
-    {
-        return $this->position;
-    }
-
-    function next()
-    {
-        ++$this->position;
-    }
-
-    function valid()
-    {
-        return isset($this->refs[$this->position]);
+        $this->items[$key] = $type;
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function count()
+    public function getSubNames()
     {
-        return count($this->refs);
+        return $this->item_names;
+    }
+
+    protected function addByName(Named $item)
+    {
+        //Метод не используется, имя берется от имени хозяина ссылки
+    }
+
+    /**
+     * @return \Interpro\Core\Contracts\Taxonomy\Types\AggrType
+     */
+    public function getSub($ref_owner_name)
+    {
+        return $this->getByName($ref_owner_name);
+    }
+
+    protected function notFoundAction($name)
+    {
+        throw new TaxonomyException('Не найдена ссылка типа '.$this->refType->getName().' по имени '.$this->ref_name.' для хозяина типа '.$name.'!');
     }
 
 }

@@ -70,38 +70,11 @@ class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\GroupType', $group1, 'интерфейс коллекции групп');
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\GroupType', $group2, 'интерфейс коллекции групп');
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\AggrType', $image, 'интерфейс image');
-        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\ScalarType', $scalarInt, 'интерфейс int');
-        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\ScalarType', $scalarString, 'интерфейс string');
+        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\CType', $scalarInt, 'интерфейс int');
+        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\CType', $scalarString, 'интерфейс string');
 
         $this->assertCount(1, $blocks, 'в коллекции 1 тип блока');
         $this->assertCount(2, $groups, 'в коллекции 2 типа группы');
         $this->assertCount(2, $groups, 'в коллекции 2 типа группы');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

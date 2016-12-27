@@ -4,12 +4,26 @@ namespace Interpro\Core\Taxonomy\Collections;
 
 use Interpro\Core\Contracts\Named;
 use Interpro\Core\Contracts\Collection;
+use Interpro\Core\Exception\CollectionException;
 
-abstract class NamedCollection implements Collection
+class NamedCollection implements Collection
 {
     protected $items = [];
-    private $item_names = [];
+    protected $item_names = [];
     private $position = 0;
+
+    public function first()
+    {
+        if(count($this->item_names) !== 0)
+        {
+            $name = $this->item_names[0];
+            return $this->items[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     function rewind()
     {
@@ -56,17 +70,24 @@ abstract class NamedCollection implements Collection
         {
             return $this->items[$name];
         }
-        else
-        {
-            return $this->notFoundAction($name);
-        }
+
+        $this->notFoundAction($name);
     }
 
     protected function addByName(Named $item)
     {
-        $this->item_names[] = $item->getName();
-        $this->items[$item->getName()] = $item;
+        $key = $item->getName();
+
+        if(!in_array($key, $this->item_names))
+        {
+            $this->item_names[] = $key;
+        }
+
+        $this->items[$key] = $item;
     }
 
-    abstract protected function notFoundAction($name);
+    protected function notFoundAction($name)
+    {
+        throw new CollectionException('Элемент коллекции не найден по имени '.$name.'!');
+    }
 }

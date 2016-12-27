@@ -3,9 +3,9 @@
 namespace Interpro\Core\Taxonomy\Types;
 
 use Interpro\Core\Taxonomy\Collections\FieldsCollection;
-use Interpro\Core\Taxonomy\Collections\SubsCollection;
-use Interpro\Core\Taxonomy\Fields\OwnField;
-use Interpro\Core\Taxonomy\Fields\RefField;
+use Interpro\Core\Taxonomy\Collections\SubRefNamedCollectionSet;
+use Interpro\Core\Contracts\Taxonomy\Fields\OwnField as OwnFieldInterface;
+use Interpro\Core\Contracts\Taxonomy\Fields\RefField as RefFieldInterface;
 use Interpro\Core\Contracts\Taxonomy\Types\AggrType as AggrTypeInterface;
 
 abstract class AggrType extends ProType implements AggrTypeInterface
@@ -33,22 +33,22 @@ abstract class AggrType extends ProType implements AggrTypeInterface
         $this->fields = new FieldsCollection();
         $this->owns   = new FieldsCollection();
         $this->refs   = new FieldsCollection();
-        $this->subs   = new SubsCollection();
+        $this->subs   = new SubRefNamedCollectionSet($this);
     }
 
-    public function addOwn(OwnField $field)
+    public function addOwn(OwnFieldInterface $field)
     {
         $this->owns->addField($field);
         $this->fields->addField($field);
     }
 
-    public function addRef(RefField $field)
+    public function addRef(RefFieldInterface $field)
     {
         $this->refs->addField($field);
         $this->fields->addField($field);
     }
 
-    public function addSub(RefField $field)
+    public function addSub(RefFieldInterface $field)
     {
         $this->subs->addRef($field);
     }
@@ -90,13 +90,21 @@ abstract class AggrType extends ProType implements AggrTypeInterface
     }
 
     /**
-     * @param string $field_name
+     * @param string $ref_name
      *
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\AggrTypesCollection
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
      */
-    public function getSubs($field_name = 'all')
+    public function getSubs($ref_name)
     {
-        return $this->subs->filterByFieldName($field_name);
+        return $this->subs->getSubRefs($ref_name);
+    }
+
+    /**
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubRefNamedCollectionSet
+     */
+    public function getSubsSet()
+    {
+        return $this->subs;
     }
 
     /**

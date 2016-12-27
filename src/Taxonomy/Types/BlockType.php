@@ -9,8 +9,6 @@ use Interpro\Core\Contracts\Taxonomy\Types\BlockType as BlockTypeInterface;
 
 class BlockType extends AggrType implements BlockTypeInterface
 {
-    private $topLevelGroups = [];
-
     /**
      * @return int
      */
@@ -29,14 +27,13 @@ class BlockType extends AggrType implements BlockTypeInterface
 
     /**
      * @param string $group_name
-     * @param string $ref_name
      *
      * @return \Interpro\Core\Contracts\Taxonomy\Types\GroupType
      *
      */
-    public function getGroupType($group_name, $ref_name = 'superior')
+    public function getGroupType($group_name)
     {
-        $groupType = $this->getGroups($ref_name)->getType($group_name);
+        $groupType = $this->getGroups()->getSub($group_name);
 
         return $groupType;
     }
@@ -49,40 +46,21 @@ class BlockType extends AggrType implements BlockTypeInterface
      */
     public function getGroupTypeFlat($group_name)
     {
-        $types = $this->getSubs('block_name');
+        $groupType = $this->getGroupsFlat()->getSub($group_name);
 
-        return $types->getType($group_name);
+        return $groupType;
     }
 
     /**
-     * @param string $ref_name
-     *
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\GroupTypesCollection
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
      */
-    public function getGroups($ref_name = 'superior')
+    public function getGroups()
     {
-        if(array_key_exists($ref_name, $this->topLevelGroups))
-        {
-            $collection = new GroupTypesCollection();
-
-            $types = $this->getSubs('block_name');
-
-            foreach($types as $type)
-            {
-                if(!$type->refExist($ref_name))
-                {
-                    $collection->addType($type);
-                }
-            }
-
-            $this->topLevelGroups[$ref_name] = $collection;
-        }
-
-        return $this->topLevelGroups[$ref_name];
+        return $this->getSubs('superior');
     }
 
     /**
-     * @return \Interpro\Core\Contracts\Taxonomy\Collections\TypesCollection
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
      */
     public function getGroupsFlat()
     {

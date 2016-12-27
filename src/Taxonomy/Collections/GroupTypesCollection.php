@@ -15,7 +15,7 @@ class GroupTypesCollection extends NamedCollection implements GroupTypesCollecti
      */
     public function getType($name)
     {
-        return $this->getType($name);
+        return $this->getByName($name);
     }
 
     /**

@@ -2,22 +2,13 @@
 
 namespace Interpro\Core\Taxonomy\Fields;
 
-use Interpro\Core\Taxonomy\Types\AggrType;
 use Interpro\Core\Contracts\Taxonomy\Types\Type;
 use Interpro\Core\Taxonomy\Enum\TypeMode;
 use Interpro\Core\Taxonomy\Exception\TaxonomyException;
+use Interpro\Core\Contracts\Taxonomy\Fields\OwnField as OwnFieldInterface;
 
-class OwnField extends Field
+class OwnField extends Field implements OwnFieldInterface
 {
-    /**
-     * @return void
-     */
-    public function __construct(AggrType $ownerType, $name, $field_type_name)
-    {
-        $this->owner = $ownerType;
-        $this->name = $name;
-        $this->field_type_name = $field_type_name;
-    }
 
     public function setFieldType(Type $fieldType)
     {

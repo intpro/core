@@ -2,7 +2,7 @@
 
 namespace Interpro\Core\Contracts\Taxonomy\Types;
 
-interface GroupType extends AggrType
+interface GroupType extends AType
 {
     /**
      * @param string $group_name

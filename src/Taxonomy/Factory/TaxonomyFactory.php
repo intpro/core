@@ -2,6 +2,7 @@
 
 namespace Interpro\Core\Taxonomy\Factory;
 
+use Illuminate\Support\Facades\Log;
 use Interpro\Core\Contracts\Taxonomy\Collections\ManifestsCollection;
 use Interpro\Core\Contracts\Taxonomy\Manifest\Aggregate;
 use Interpro\Core\Contracts\Taxonomy\Manifest\Own;
@@ -19,7 +20,9 @@ use Interpro\Core\Taxonomy\Types\AggrType;
 use Interpro\Core\Taxonomy\Types\BlockType;
 use Interpro\Core\Taxonomy\Types\BModeType;
 use Interpro\Core\Taxonomy\Types\GroupType;
-use Interpro\Core\Taxonomy\Types\ScalarType;
+use Interpro\Core\Taxonomy\Types\CType;
+use Interpro\Core\Contracts\Taxonomy\Fields\RefField as RefFieldInterface;
+use Interpro\Core\Contracts\Taxonomy\Fields\OwnField as OwnFieldInterface;
 
 class TaxonomyFactory
 {
@@ -63,7 +66,7 @@ class TaxonomyFactory
             }
             elseif($mode === TypeMode::MODE_C)
             {
-                $type = new ScalarType($name, $family);
+                $type = new CType($name, $family);
                 $allTypes->addType($type);
             }
             else
@@ -114,8 +117,17 @@ class TaxonomyFactory
             {
                 foreach($type->getFields() as $field)
                 {
-                    $field_type = $collection->getType($field->getFieldTypeName());
-                    $field->setFieldType($field_type);
+                    $fieldType = $collection->getType($field->getFieldTypeName());
+                    $field->setFieldType($fieldType);
+
+                    if($field instanceof RefFieldInterface)
+                    {
+                        $fieldType->addSub($field);
+                    }
+                    elseif($field instanceof OwnFieldInterface)
+                    {
+                       $fieldType->setUsing($type);
+                    }
                 }
             }
         }

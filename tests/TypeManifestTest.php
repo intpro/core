@@ -52,7 +52,7 @@ class TypeManifestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($manB->toOwnTypes(), $owners, 'имена владельцев');
     }
 
-    public function testСTypeManifest()
+    public function testCTypeManifest()
     {
         $family = 'qs';
         $name = 'block1';

@@ -34,10 +34,10 @@ class TypeRegistrator implements TypeRegistratorInterface
         $mode = $manifest->getMode();
         $rank = $manifest->getRank();
 
-        if(!($mode === TypeMode::MODE_A and $rank === TypeRank::BLOCK) or
+        if(!(($mode === TypeMode::MODE_A and $rank === TypeRank::BLOCK) or
             ($mode === TypeMode::MODE_A and $rank === TypeRank::GROUP) or
             ($mode === TypeMode::MODE_B and $rank === TypeRank::OWN) or
-            ($mode === TypeMode::MODE_C and $rank === TypeRank::OWN))
+            ($mode === TypeMode::MODE_C and $rank === TypeRank::OWN)))
         {
             throw new TaxonomyException('В регистрации типа '.$manifest->getName().' отказано! Сочетание ранга TypeRank('.$rank.') и варианта использования TypeMode ('.$mode.') типа не соответствует правилам!');
         }

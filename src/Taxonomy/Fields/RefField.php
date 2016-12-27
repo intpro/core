@@ -5,18 +5,10 @@ namespace Interpro\Core\Taxonomy\Fields;
 use Interpro\Core\Taxonomy\Enum\TypeMode;
 use Interpro\Core\Taxonomy\Exception\TaxonomyException;
 use Interpro\Core\Taxonomy\Types\AggrType;
+use Interpro\Core\Contracts\Taxonomy\Fields\RefField as RefFieldInterface;
 
-class RefField extends Field
+class RefField extends Field implements RefFieldInterface
 {
-    /**
-     * @return void
-     */
-    public function __construct(AggrType $ownerType, $name, $field_type_name)
-    {
-        $this->owner = $ownerType;
-        $this->name = $name;
-        $this->field_type_name = $field_type_name;
-    }
 
     public function setFieldType(AggrType $fieldType)
     {

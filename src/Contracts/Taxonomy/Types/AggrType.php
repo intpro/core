@@ -20,6 +20,18 @@ interface AggrType extends Type
     public function getFields($field_type_name = 'all');
 
     /**
+     * @param string $ref_name
+     *
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubsCollection
+     */
+    public function getSubs($ref_name);
+
+    /**
+     * @return \Interpro\Core\Contracts\Taxonomy\Collections\SubRefNamedCollectionSet
+     */
+    public function getSubsSet();
+
+    /**
      * @param string $field_name
      *
      * @return \Interpro\Core\Contracts\Taxonomy\Types\Type
@@ -38,7 +50,7 @@ interface AggrType extends Type
     /**
      * @param string $own_name
      *
-     * @return \Interpro\Core\Contracts\Taxonomy\Fields\Field
+     * @return \Interpro\Core\Contracts\Taxonomy\Fields\OwnField
      *
      */
     public function getOwn($own_name);
@@ -46,7 +58,7 @@ interface AggrType extends Type
     /**
      * @param string $ref_name
      *
-     * @return \Interpro\Core\Contracts\Taxonomy\Fields\Field
+     * @return \Interpro\Core\Contracts\Taxonomy\Fields\RefField
      *
      */
     public function getRef($ref_name);
