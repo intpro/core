@@ -144,8 +144,12 @@ class TaxonomyFactory
                 foreach($field_names as $field_name)
                 {
                     $ownerType = $collection->getType($owner_name);
-                    $field = new OwnField($ownerType, $field_name, $type_name);
-                    $ownerType->addOwn($field);
+
+                    if($ownerType->getMode() === TypeMode::MODE_A)
+                    {
+                        $field = new OwnField($ownerType, $field_name, $type_name);
+                        $ownerType->addOwn($field);
+                    }
                 }
             }
         }

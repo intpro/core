@@ -47,6 +47,7 @@ class CoreExecServiceProvider extends ServiceProvider {
             'Interpro\Core\Contracts\Mediator\RefConsistMediator',
             'Interpro\Core\Mediators\RefConsistMediator'
         );
+        //--------------------------------------------------
     }
 
 }

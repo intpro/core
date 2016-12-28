@@ -1,7 +1,7 @@
 {
     "name": "interpro/core",
     "description": "Центральные компоненты для интеграции.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "keywords": [
         "core"
     ],
@@ -16,7 +16,12 @@
         "classmap": [],
         "files": [],
         "psr-4": {
-        "Interpro\\Origin\\": "src/"
+        "Interpro\\Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Interpro\\Core\\Test": "test/"
         }
     },
     "extra": {

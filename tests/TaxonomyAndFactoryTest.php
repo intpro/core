@@ -44,6 +44,10 @@ class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
         $name = 'int';
         $manC2 = new \Interpro\Core\Taxonomy\Manifests\CTypeManifest($family, $name, [], []);
 
+        $family = 'seo';
+        $name = 'seo';
+        $manC3 = new \Interpro\Core\Taxonomy\Manifests\CTypeManifest($family, $name, ['seotitle', 'seodescription', 'seokeywords'], ['group1', 'group2']);
+
         $manifestsCollection = new \Interpro\Core\Taxonomy\Collections\ManifestsCollection();
         $manifestsCollection->addManifest($manA1);
         $manifestsCollection->addManifest($manA2);
@@ -51,6 +55,7 @@ class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
         $manifestsCollection->addManifest($manB1);
         $manifestsCollection->addManifest($manC1);
         $manifestsCollection->addManifest($manC2);
+        $manifestsCollection->addManifest($manC3);
 
         $taxonomy = $this->taxonomyFactory->createTaxonomy($manifestsCollection);
 
@@ -62,6 +67,7 @@ class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
         $image = $taxonomy->getType('image');
         $scalarInt = $taxonomy->getType('int');
         $scalarString = $taxonomy->getType('string');
+        $seo = $taxonomy->getType('seo');
 
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Taxonomy', $taxonomy, 'интерфейс таксономии');
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Collections\BlockTypesCollection', $blocks, 'интерфейс коллекции блоков');
@@ -72,6 +78,10 @@ class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\AggrType', $image, 'интерфейс image');
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\CType', $scalarInt, 'интерфейс int');
         $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\CType', $scalarString, 'интерфейс string');
+        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Types\CType', $seo, 'интерфейс seo');
+
+        $ownSeo = $group1->getOwn('seokeywords');
+        $this->assertInstanceOf('Interpro\Core\Contracts\Taxonomy\Fields\OwnField', $ownSeo, 'интерфейс собств. поля для seo');
 
         $this->assertCount(1, $blocks, 'в коллекции 1 тип блока');
         $this->assertCount(2, $groups, 'в коллекции 2 типа группы');
