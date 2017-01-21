@@ -11,11 +11,11 @@ class FieldIterator implements \Interpro\Core\Contracts\Iterator
     protected $refs = [];
     private $position = 0;
 
-    public function __construct(Collection $collection, $path)
+    public function __construct(Collection $collection, $path, $sort = 'ASC')
     {
         $field_array = explode('.', $path);
 
-        $keys = [];
+        $sorter = [];
 
         foreach($collection as $item)
         {
@@ -24,6 +24,11 @@ class FieldIterator implements \Interpro\Core\Contracts\Iterator
             foreach($field_array as $field_name)
             {
                 $next = $next->$field_name;
+
+                if(is_null($next))
+                {
+                    break;
+                }
 
                 if(is_object($next))
                 {
@@ -39,11 +44,18 @@ class FieldIterator implements \Interpro\Core\Contracts\Iterator
                 throw new CollectionException('Путь сортировки закончился объектом, необходима строка или любой скалярный тип: '.$path);
             }
 
-            $keys[] = $next;
+            $sorter[] = $next;
             $this->refs[] = $item;
         }
 
-        array_multisort($keys, $this->refs);
+        if($sort === 'DESC')
+        {
+            array_multisort($sorter, SORT_DESC, $this->refs);
+        }
+        else
+        {
+            array_multisort($sorter, SORT_ASC, $this->refs);
+        }
     }
 
     public function first()

@@ -50,8 +50,8 @@ class Collection implements \Interpro\Core\Contracts\Collection
         return count($this->refs);
     }
 
-    public function sortBy($path)
+    public function sortBy($path, $sort = 'ASC')
     {
-        return new FieldIterator($this, $path);
+        return new FieldIterator($this, $path, $sort);
     }
 }

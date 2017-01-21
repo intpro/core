@@ -87,9 +87,9 @@ class NamedCollection implements Collection
         $this->items[$key] = $item;
     }
 
-    public function sortBy($path)
+    public function sortBy($path, $sort = 'ASC')
     {
-        return new FieldIterator($this, $path);
+        return new FieldIterator($this, $path, $sort);
     }
 
     protected function notFoundAction($name)
