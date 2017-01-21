@@ -20,11 +20,11 @@ interface SubsCollection extends NamedCollection, Named
     public function addByRef(RefField $ref);
 
     /**
-     * @param string $ref_name
+     * @param string $ref_owner_name
      *
      * @return \Interpro\Core\Contracts\Taxonomy\Types\AggrType
      */
-    public function getSub($ref_name);
+    public function getSub($ref_owner_name);
 
     /**
      * @return array

@@ -5,6 +5,7 @@ namespace Interpro\Core\Taxonomy\Collections;
 use Interpro\Core\Contracts\Named;
 use Interpro\Core\Contracts\Collection;
 use Interpro\Core\Exception\CollectionException;
+use Interpro\Core\Iterator\FieldIterator;
 
 class NamedCollection implements Collection
 {
@@ -84,6 +85,11 @@ class NamedCollection implements Collection
         }
 
         $this->items[$key] = $item;
+    }
+
+    public function sortBy($path)
+    {
+        return new FieldIterator($this, $path);
     }
 
     protected function notFoundAction($name)

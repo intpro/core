@@ -46,4 +46,33 @@ abstract class ProType implements TypeInterface
      * @return string
      */
     abstract function getRank();
+
+    /**
+     * @param string $req_name
+     *
+     * @return mixed
+     */
+    public function __get($req_name)
+    {
+        if($req_name === 'mode')
+        {
+            return $this->getMode();
+        }
+        elseif($req_name === 'name')
+        {
+            return $this->getName();
+        }
+        elseif($req_name === 'rank')
+        {
+            return $this->getRank();
+        }
+        elseif($req_name === 'family')
+        {
+            return $this->getFamily();
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

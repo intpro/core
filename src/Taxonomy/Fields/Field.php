@@ -115,4 +115,37 @@ abstract class Field implements FieldInterface
     {
         $this->type = $type;
     }
+
+    /**
+     * @param string $req_name
+     *
+     * @return mixed
+     */
+    public function __get($req_name)
+    {
+        if($req_name === 'mode')
+        {
+            return $this->getMode();
+        }
+        elseif($req_name === 'name')
+        {
+            return $this->getName();
+        }
+        elseif($req_name === 'rank')
+        {
+            return $this->getRank();
+        }
+        elseif($req_name === 'owner')
+        {
+            return $this->owner;
+        }
+        elseif($req_name === 'family')
+        {
+            return $this->getFieldTypeFamily();
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

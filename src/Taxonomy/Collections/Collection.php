@@ -2,6 +2,8 @@
 
 namespace Interpro\Core\Taxonomy\Collections;
 
+use Interpro\Core\Iterator\FieldIterator;
+
 class Collection implements \Interpro\Core\Contracts\Collection
 {
     protected $refs = [];
@@ -46,5 +48,10 @@ class Collection implements \Interpro\Core\Contracts\Collection
     public function count()
     {
         return count($this->refs);
+    }
+
+    public function sortBy($path)
+    {
+        return new FieldIterator($this, $path);
     }
 }
