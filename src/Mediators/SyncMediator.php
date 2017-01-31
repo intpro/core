@@ -4,6 +4,7 @@ namespace Interpro\Core\Mediators;
 
 use Interpro\Core\Contracts\Executor\ASynchronizer;
 use Interpro\Core\Contracts\Executor\OwnSynchronizer;
+use Interpro\Core\Contracts\Executor\PredefinedGroupItemsSynchronizer;
 use Interpro\Core\Contracts\Mediator\SyncMediator as SyncMediatorInterface;
 use Interpro\Core\Exception\CoreException;
 
@@ -11,6 +12,35 @@ class SyncMediator implements SyncMediatorInterface
 {
     private $synchronizersA = [];
     private $synchronizersOwn = [];
+    private $predefinedGroupItemsSynchronizers = [];
+
+    /**
+     * @param \Interpro\Core\Contracts\Executor\PredefinedGroupItemsSynchronizer
+     *
+     * @return void
+     */
+    public function registerPredefinedGroupItemsSynchronizer(PredefinedGroupItemsSynchronizer $synchronizer)
+    {
+        $family = $synchronizer->getFamily();
+
+        if(array_key_exists($family, $this->predefinedGroupItemsSynchronizers))
+        {
+            throw new CoreException('Синхронизатор предопределенных элементов групп пакета '.$family.' уже зарегестрирована в медиаторе!');
+        }
+
+        $this->predefinedGroupItemsSynchronizers[$family] = $synchronizer;
+    }
+
+    /**
+     * @return void
+     */
+    public function syncPredefinedGroupItems()
+    {
+        foreach($this->predefinedGroupItemsSynchronizers as $synchronizer)
+        {
+            $synchronizer->sync();
+        }
+    }
 
     /**
      * @param string $family

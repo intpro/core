@@ -4,9 +4,22 @@ namespace Interpro\Core\Contracts\Mediator;
 
 use Interpro\Core\Contracts\Executor\ASynchronizer;
 use Interpro\Core\Contracts\Executor\OwnSynchronizer;
+use Interpro\Core\Contracts\Executor\PredefinedGroupItemsSynchronizer;
 
 interface SyncMediator
 {
+    /**
+     * @param \Interpro\Core\Contracts\Executor\PredefinedGroupItemsSynchronizer
+     *
+     * @return void
+     */
+    public function registerPredefinedGroupItemsSynchronizer(PredefinedGroupItemsSynchronizer $synchronizer);
+
+    /**
+     * @return void
+     */
+    public function syncPredefinedGroupItems();
+
     /**
      * @param string $family
      *

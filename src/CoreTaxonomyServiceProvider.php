@@ -13,7 +13,7 @@ class CoreTaxonomyServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher)
     {
-        Log::info('Загрузка CoreTaxonomyServiceProvider');
+        //Log::info('Загрузка CoreTaxonomyServiceProvider');
     }
 
     /**
@@ -23,7 +23,7 @@ class CoreTaxonomyServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация CoreTaxonomyServiceProvider');
+        //Log::info('Регистрация CoreTaxonomyServiceProvider');
 
         $this->app->singleton(
             'Interpro\Core\Contracts\Taxonomy\Factory\TaxonomyFactory',

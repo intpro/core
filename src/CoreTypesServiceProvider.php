@@ -13,7 +13,7 @@ class CoreTypesServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher)
     {
-        Log::info('Загрузка CoreTypesServiceProvider');
+        //Log::info('Загрузка CoreTypesServiceProvider');
     }
 
     /**
@@ -21,7 +21,7 @@ class CoreTypesServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация CoreTypesServiceProvider');
+        //Log::info('Регистрация CoreTypesServiceProvider');
 
         $this->app->singleton(
             'Interpro\Core\Contracts\Taxonomy\TypesForecastList',

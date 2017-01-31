@@ -13,7 +13,7 @@ class CoreExecServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher)
     {
-        Log::info('Загрузка CoreExecServiceProvider');
+        //Log::info('Загрузка CoreExecServiceProvider');
     }
 
     /**
@@ -21,7 +21,7 @@ class CoreExecServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация CoreExecServiceProvider');
+        //Log::info('Регистрация CoreExecServiceProvider');
 
         $this->app->singleton(
             'Interpro\Core\Contracts\Mediator\InitMediator',
