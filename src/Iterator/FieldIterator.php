@@ -3,6 +3,7 @@
 namespace Interpro\Core\Iterator;
 
 use Interpro\Core\Contracts\Collection;
+use Interpro\Core\Enum\OddEven;
 use Interpro\Core\Exception\CollectionException;
 use Interpro\Extractor\Contracts\Items\AItem;
 
@@ -56,6 +57,16 @@ class FieldIterator implements \Interpro\Core\Contracts\Iterator
         {
             array_multisort($sorter, SORT_ASC, $this->refs);
         }
+    }
+
+    public function odd()
+    {
+        return new OddEvenIterator($this->refs, OddEven::ODD);
+    }
+
+    public function even()
+    {
+        return new OddEvenIterator($this->refs, OddEven::EVEN);
     }
 
     public function first()

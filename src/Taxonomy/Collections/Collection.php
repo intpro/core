@@ -2,7 +2,9 @@
 
 namespace Interpro\Core\Taxonomy\Collections;
 
+use Interpro\Core\Enum\OddEven;
 use Interpro\Core\Iterator\FieldIterator;
+use Interpro\Core\Iterator\OddEvenIterator;
 
 class Collection implements \Interpro\Core\Contracts\Collection
 {
@@ -53,5 +55,15 @@ class Collection implements \Interpro\Core\Contracts\Collection
     public function sortBy($path, $sort = 'ASC')
     {
         return new FieldIterator($this, $path, $sort);
+    }
+
+    public function odd()
+    {
+        return new OddEvenIterator($this->refs, OddEven::ODD);
+    }
+
+    public function even()
+    {
+        return new OddEvenIterator($this->refs, OddEven::EVEN);
     }
 }

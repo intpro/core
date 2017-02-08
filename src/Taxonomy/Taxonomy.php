@@ -67,6 +67,14 @@ class Taxonomy implements TaxonomyInterface
     }
 
     /**
+     * @return bool
+     */
+    public function exist($name)
+    {
+        return $this->allTypes->exist($name);
+    }
+
+    /**
      * @param string $family
      *
      * @return \Interpro\Core\Taxonomy\Collections\TypesCollection

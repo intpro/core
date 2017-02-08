@@ -4,8 +4,10 @@ namespace Interpro\Core\Taxonomy\Collections;
 
 use Interpro\Core\Contracts\Named;
 use Interpro\Core\Contracts\Collection;
+use Interpro\Core\Enum\OddEven;
 use Interpro\Core\Exception\CollectionException;
 use Interpro\Core\Iterator\FieldIterator;
+use Interpro\Core\Iterator\OddEvenIterator;
 
 class NamedCollection implements Collection
 {
@@ -90,6 +92,16 @@ class NamedCollection implements Collection
     public function sortBy($path, $sort = 'ASC')
     {
         return new FieldIterator($this, $path, $sort);
+    }
+
+    public function odd()
+    {
+        return new OddEvenIterator($this->items, OddEven::ODD);
+    }
+
+    public function even()
+    {
+        return new OddEvenIterator($this->items, OddEven::EVEN);
     }
 
     protected function notFoundAction($name)

@@ -30,6 +30,11 @@ interface Taxonomy
     public function getType($name);
 
     /**
+     * @return bool
+     */
+    public function exist($name);
+
+    /**
      * @param string $family
      *
      * @return \Interpro\Core\Taxonomy\Collections\TypesCollection
