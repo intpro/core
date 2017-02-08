@@ -11,9 +11,9 @@ class OddEvenIterator implements Iterator
     private $position = 0;
     private $oddeven = 'ODD';
 
-    public function __construct(array & $refs, $oddeven = 'ODD')
+    public function __construct(array $refs, $oddeven = 'ODD')
     {
-        $this->refs = $refs;
+        $this->refs = array_values($refs);
         $this->oddeven = $oddeven;
     }
 
