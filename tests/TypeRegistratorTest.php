@@ -2,11 +2,11 @@
 
 namespace Interpro\Core\Test;
 
-class TypeRegistratorTest extends \PHPUnit_Framework_TestCase
+class TypeRegistratorTest extends \PHPUnit\Framework\TestCase
 {
     private $registrator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registrator = new \Interpro\Core\Taxonomy\TypeRegistrator();
     }

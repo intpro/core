@@ -11,8 +11,8 @@ use Interpro\Core\Iterator\OddEvenIterator;
 
 class NamedCollection implements Collection
 {
-    protected $items = [];
-    protected $item_names = [];
+    public $items = [];
+    public $item_names = [];
     private $position = 0;
 
     public function first()

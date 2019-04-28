@@ -2,11 +2,11 @@
 
 namespace Interpro\Core\Test;
 
-class TaxonomyAndFactoryTest extends \PHPUnit_Framework_TestCase
+class TaxonomyAndFactoryTest extends \PHPUnit\Framework\TestCase
 {
     private $taxonomyFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->taxonomyFactory = new \Interpro\Core\Taxonomy\Factory\TaxonomyFactory();
     }

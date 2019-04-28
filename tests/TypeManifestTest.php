@@ -2,7 +2,7 @@
 
 namespace Interpro\Core\Test;
 
-class TypeManifestTest extends \PHPUnit_Framework_TestCase
+class TypeManifestTest extends \PHPUnit\Framework\TestCase
 {
     //Не полный, еще обработать исключения
 

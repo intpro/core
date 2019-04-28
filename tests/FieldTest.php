@@ -9,9 +9,9 @@ use Interpro\Core\Taxonomy\Types\BModeType;
 use Interpro\Core\Taxonomy\Types\GroupType;
 use Interpro\Core\Taxonomy\Types\CType;
 
-class FieldTest extends \PHPUnit_Framework_TestCase
+class FieldTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->aggrA1 = new BlockType('block1', 'qsfamily');
         $this->aggrA2 = new GroupType('group1', 'qsfamily');
